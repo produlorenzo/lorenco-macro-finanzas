@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PublicationsSearch } from "@/components/publications-search";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPublications } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "Publicaciones",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function PublicationsPage() {
-  const posts = getAllPosts();
+  const posts = getAllPublications();
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">

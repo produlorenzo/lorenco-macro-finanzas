@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const postRoutes = getAllPosts().map((post) => ({
-    url: `${site.url}/publicaciones/${post.slug}`,
+    url: `${site.url}${post.urlPath}`,
     lastModified: new Date(`${post.date}T00:00:00`),
   }));
 

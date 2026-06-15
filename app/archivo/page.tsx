@@ -27,7 +27,7 @@ export default function ArchivePage() {
               <div className="space-y-4">
                 {posts.map((post) => (
                   <article key={post.slug}>
-                    <Link className="font-serif text-xl font-bold shadow-rule transition hover:text-accent dark:hover:text-brass" href={`/publicaciones/${post.slug}`}>
+                    <Link className="font-serif text-xl font-bold shadow-rule transition hover:text-accent dark:hover:text-brass" href={post.urlPath}>
                       {post.title}
                     </Link>
                     <p className="mt-1 text-sm text-muted dark:text-stone-400">{formatDate(post.date)}</p>

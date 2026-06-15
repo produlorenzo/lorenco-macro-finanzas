@@ -20,13 +20,14 @@ export function PostList({ posts }: { posts: Post[] }) {
           </time>
           <div>
             <h2 className="font-serif text-2xl font-bold text-ink dark:text-paper">
-              <Link className="shadow-rule transition hover:text-accent dark:hover:text-brass" href={`/publicaciones/${post.slug}`}>
+              <Link className="shadow-rule transition hover:text-accent dark:hover:text-brass" href={post.urlPath}>
                 {post.title}
               </Link>
             </h2>
             <p className="mt-2 max-w-3xl text-base leading-7 text-muted dark:text-stone-300">
               {post.description}
             </p>
+            <p className="mt-2 text-sm uppercase text-accent dark:text-brass">{post.category}</p>
             {post.tags.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
