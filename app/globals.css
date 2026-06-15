@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    linear-gradient(90deg, rgba(143, 63, 47, 0.055) 1px, transparent 1px),
+    #f7f2ea;
+  background-size: 72px 72px;
+  color: #171412;
+}
+
+.dark body {
+  background:
+    linear-gradient(90deg, rgba(159, 122, 58, 0.08) 1px, transparent 1px),
+    #11100f;
+  color: #f7f2ea;
+}
+
+::selection {
+  background: rgba(143, 63, 47, 0.24);
+}
+
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+  text-decoration-color: rgba(143, 63, 47, 0.45);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
