@@ -93,7 +93,7 @@ Si no hay proveedor configurado, la web no se rompe y muestra un error controlad
 
 El proyecto incluye metadata general, metadata por publicación, Open Graph, `robots.txt` y `sitemap.xml`. Las publicaciones en draft no entran al sitemap.
 
-Configurar la URL pública en producción:
+Configurar la URL pública en producción si querés fijar una URL canónica o usar un dominio propio. Si esta variable no existe, Vercel usa automáticamente `VERCEL_URL`.
 
 ```env
 NEXT_PUBLIC_SITE_URL="https://tu-dominio.com"
@@ -104,7 +104,7 @@ NEXT_PUBLIC_SITE_URL="https://tu-dominio.com"
 1. Crear un repositorio privado llamado `lorenco-macro-finanzas`.
 2. Subir este proyecto.
 3. Importar el repositorio en Vercel.
-4. Configurar `NEXT_PUBLIC_SITE_URL` con la URL final.
+4. Configurar `NEXT_PUBLIC_SITE_URL` solo cuando exista una URL final o dominio propio.
 5. Configurar variables del formulario cuando se elija proveedor.
 
 ## Analytics
