@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { defaultCoverImage } from "@/lib/content-config";
 import type { Post } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
 
@@ -14,10 +15,16 @@ export function PostList({ posts }: { posts: Post[] }) {
   return (
     <div className="divide-y divide-line/80 border-y border-line/80 dark:divide-white/10 dark:border-white/10">
       {posts.map((post) => (
-        <article className="grid gap-3 py-6 md:grid-cols-[9rem_1fr]" key={post.slug}>
+        <article className="grid gap-4 py-6 sm:grid-cols-[8rem_1fr] md:grid-cols-[9rem_10rem_1fr]" key={post.slug}>
           <time className="text-sm text-muted dark:text-stone-400" dateTime={post.date}>
             {formatDate(post.date)}
           </time>
+          <Link
+            aria-label={post.title}
+            className="block aspect-[16/10] w-full border border-line bg-cover bg-center transition hover:border-accent dark:border-white/10 dark:hover:border-brass sm:max-w-40"
+            href={post.urlPath}
+            style={{ backgroundImage: `url(${post.coverImage ?? defaultCoverImage})` }}
+          />
           <div>
             <h2 className="font-serif text-2xl font-bold text-ink dark:text-paper">
               <Link className="shadow-rule transition hover:text-accent dark:hover:text-brass" href={post.urlPath}>

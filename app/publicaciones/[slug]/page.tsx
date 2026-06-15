@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: [post.coverImage],
+      images: post.coverImage ? [post.coverImage] : undefined,
       url: `${site.url}/publicaciones/${post.slug}`,
     },
   };
@@ -66,11 +66,12 @@ export default async function PublicationPage({ params }: Props) {
           <span>{post.readingMinutes}</span>
           <span>{post.author}</span>
         </div>
-        <img
-          alt=""
-          className="mt-8 aspect-[16/9] w-full border border-line object-cover dark:border-white/10"
-          src={post.coverImage}
-        />
+        {post.coverImage && (
+          <div
+            className="mt-8 aspect-[16/9] w-full border border-line bg-cover bg-center dark:border-white/10"
+            style={{ backgroundImage: `url(${post.coverImage})` }}
+          />
+        )}
       </header>
 
       <div className="prose prose-stone mt-10 max-w-none dark:prose-invert prose-headings:font-serif prose-a:text-accent dark:prose-a:text-brass">

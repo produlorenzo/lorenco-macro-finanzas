@@ -46,8 +46,9 @@ description: ""
 date: "${today}"
 author: "Lorenço Macro & Finanzas"
 status: "draft"
+category: "Análisis"
 tags: []
-coverImage: "/images/publicaciones/${slug}.jpg"
+coverImage: ""
 sources: []
 ---
 
@@ -57,5 +58,5 @@ Contenido pendiente.
 fs.writeFileSync(target, content, "utf8");
 
 console.log(`Borrador creado: ${target}`);
-console.log(`Imagen destacada esperada: public/images/publicaciones/${slug}.jpg`);
+console.log(`Imagen destacada opcional: public/images/publicaciones/${slug}.jpg`);
 console.log('Para publicar, completá el contenido y cambiá status a "published".');

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { defaultCoverImage } from "@/lib/content-config";
 import { normalizeSearchText } from "@/lib/format";
 
 export type PostStatus = "draft" | "published";
@@ -21,28 +22,14 @@ export type Post = {
   status: PostStatus;
   category: string;
   tags: string[];
-  coverImage: string;
+  coverImage?: string;
   sources: Source[];
   body: string;
   readingMinutes: string;
   searchText: string;
 };
 
-const contentSources = [
-  {
-    directory: path.join(process.cwd(), "content", "publicaciones"),
-    publishByDefault: false,
-    basePath: "/publicaciones",
-  },
-  {
-    directory: path.join(process.cwd(), "content", "notas"),
-    publishByDefault: true,
-    basePath: "/notas",
-  },
-];
-
-const defaultCoverImage = "/images/publicaciones/default-cover.svg";
-const datePrefixPattern = /^(\d{4}-\d{2}-\d{2})-/;
+const postsDirectory = path.join(process.cwd(), "content", "publicaciones");
 
 function ensureString(value: unknown, fallback = "") {
   return typeof value === "string" && value.trim() ? value : fallback;
@@ -72,53 +59,27 @@ function ensureSources(value: unknown): Source[] {
     .filter((item): item is Source => Boolean(item));
 }
 
-function titleFromSlug(slug: string) {
-  return slug
-    .replace(datePrefixPattern, "")
-    .split("-")
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-function dateFromSlug(slug: string) {
-  return slug.match(datePrefixPattern)?.[1];
-}
-
-function descriptionFromContent(content: string) {
-  return content
-    .split(/\r?\n/)
-    .map((line) => line.replace(/^#+\s*/, "").trim())
-    .find(Boolean) ?? "";
-}
-
-function resolveStatus(value: unknown, publishByDefault: boolean): PostStatus {
-  if (value === "draft") return "draft";
-  if (value === "published" || publishByDefault) return "published";
-  return "draft";
-}
-
-function readPostFile(directory: string, fileName: string, publishByDefault: boolean, basePath: string): Post {
+function readPostFile(fileName: string): Post {
   const slug = fileName.replace(/\.mdx?$/, "");
-  const fullPath = path.join(directory, fileName);
+  const fullPath = path.join(postsDirectory, fileName);
   const file = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(file);
-  const title = ensureString(data.title, titleFromSlug(slug));
-  const description = ensureString(data.description, descriptionFromContent(content));
+  const title = ensureString(data.title);
+  const description = ensureString(data.description);
   const tags = ensureStringArray(data.tags);
-  const category = ensureString(data.category, ensureString(data.categoria, "Nota"));
+  const coverImage = ensureString(data.coverImage) || undefined;
 
   return {
     slug,
-    urlPath: `${basePath}/${slug}`,
+    urlPath: `/publicaciones/${slug}`,
     title,
     description,
-    date: ensureString(data.date, dateFromSlug(slug) ?? new Date().toISOString().slice(0, 10)),
+    date: ensureString(data.date),
     author: ensureString(data.author, "Lorenço Macro & Finanzas"),
-    status: resolveStatus(data.status, publishByDefault),
-    category,
+    status: data.status === "published" ? "published" : "draft",
+    category: ensureString(data.category, ensureString(data.categoria, "Análisis")),
     tags,
-    coverImage: ensureString(data.coverImage, defaultCoverImage),
+    coverImage,
     sources: ensureSources(data.sources),
     body: content,
     readingMinutes: readingTime(content).text.replace("min read", "min de lectura"),
@@ -127,50 +88,20 @@ function readPostFile(directory: string, fileName: string, publishByDefault: boo
 }
 
 export function getAllPosts({ includeDrafts = false } = {}) {
-  return contentSources
-    .flatMap((source) => {
-      if (!fs.existsSync(source.directory)) return [];
-
-      return fs
-        .readdirSync(source.directory)
-        .filter((fileName) => /\.mdx?$/.test(fileName))
-        .map((fileName) => readPostFile(source.directory, fileName, source.publishByDefault, source.basePath));
-    })
-    .filter((post) => includeDrafts || post.status === "published")
-    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-}
-
-export function getAllPublications({ includeDrafts = false } = {}) {
-  const source = contentSources.find((item) => item.basePath === "/publicaciones");
-  if (!source || !fs.existsSync(source.directory)) return [];
+  if (!fs.existsSync(postsDirectory)) return [];
 
   return fs
-    .readdirSync(source.directory)
+    .readdirSync(postsDirectory)
     .filter((fileName) => /\.mdx?$/.test(fileName))
-    .map((fileName) => readPostFile(source.directory, fileName, source.publishByDefault, source.basePath))
+    .map(readPostFile)
     .filter((post) => includeDrafts || post.status === "published")
     .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 }
 
-export function getAllNotes({ includeDrafts = false } = {}) {
-  const source = contentSources.find((item) => item.basePath === "/notas");
-  if (!source || !fs.existsSync(source.directory)) return [];
-
-  return fs
-    .readdirSync(source.directory)
-    .filter((fileName) => /\.mdx?$/.test(fileName))
-    .map((fileName) => readPostFile(source.directory, fileName, source.publishByDefault, source.basePath))
-    .filter((post) => includeDrafts || post.status === "published")
-    .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
-}
+export const getAllPublications = getAllPosts;
 
 export function getPostBySlug(slug: string) {
-  const post = getAllPublications({ includeDrafts: false }).find((item) => item.slug === slug);
-  return post ?? null;
-}
-
-export function getNoteBySlug(slug: string) {
-  const post = getAllNotes({ includeDrafts: false }).find((item) => item.slug === slug);
+  const post = getAllPosts({ includeDrafts: false }).find((item) => item.slug === slug);
   return post ?? null;
 }
 
