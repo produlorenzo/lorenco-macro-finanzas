@@ -58,5 +58,5 @@ Contenido pendiente.
 fs.writeFileSync(target, content, "utf8");
 
 console.log(`Borrador creado: ${target}`);
-console.log(`Imagen destacada opcional: public/images/publicaciones/${slug}.jpg`);
+console.log("Imagen destacada opcional: si coverImage queda vacío, se usa /images/lorenco-default-cover.png.");
 console.log('Para publicar, completá el contenido y cambiá status a "published".');

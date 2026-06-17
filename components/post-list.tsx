@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { defaultCoverImage } from "@/lib/content-config";
+import { getPostCoverImage } from "@/lib/content-config";
 import type { Post } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
 
@@ -23,7 +23,7 @@ export function PostList({ posts }: { posts: Post[] }) {
             aria-label={post.title}
             className="block aspect-[16/10] w-full border border-line bg-cover bg-center transition hover:border-accent dark:border-white/10 dark:hover:border-brass sm:max-w-40"
             href={post.urlPath}
-            style={{ backgroundImage: `url(${post.coverImage ?? defaultCoverImage})` }}
+            style={{ backgroundImage: `url(${getPostCoverImage(post.coverImage)})` }}
           />
           <div>
             <h2 className="font-serif text-2xl font-bold text-ink dark:text-paper">

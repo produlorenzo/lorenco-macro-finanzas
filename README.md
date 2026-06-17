@@ -90,12 +90,18 @@ Campos principales:
 - `status`: `draft` o `published`.
 - `category`: categoría editorial visible.
 - `tags`: tags visibles.
-- `coverImage`: opcional. Si queda vacío, la página individual no muestra imagen destacada y los listados usan una portada neutra.
+- `coverImage`: opcional. Si queda vacío, la web usa automáticamente `/images/lorenco-default-cover.png`.
 - `sources`: fuentes consultadas opcionales.
 
 ## Imágenes
 
 La imagen destacada es opcional.
+
+Si no indicás `coverImage`, se usa automáticamente:
+
+```text
+/images/lorenco-default-cover.png
+```
 
 Si se usa, debe ir en:
 

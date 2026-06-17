@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import { getPostCoverImage } from "@/lib/content-config";
 import { formatDate } from "@/lib/format";
 import { getAllPublications, getPostBySlug } from "@/lib/posts";
 import { site } from "@/lib/site";
@@ -23,6 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {};
   }
 
+  const coverImage = getPostCoverImage(post.coverImage);
+
   return {
     title: post.title,
     description: post.description,
@@ -32,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: post.coverImage ? [post.coverImage] : undefined,
+      images: [coverImage],
       url: `${site.url}/publicaciones/${post.slug}`,
     },
   };
@@ -45,6 +48,8 @@ export default async function PublicationPage({ params }: Props) {
   if (!post) {
     notFound();
   }
+
+  const coverImage = getPostCoverImage(post.coverImage);
 
   return (
     <article className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-16">
@@ -66,12 +71,10 @@ export default async function PublicationPage({ params }: Props) {
           <span>{post.readingMinutes}</span>
           <span>{post.author}</span>
         </div>
-        {post.coverImage && (
-          <div
-            className="mt-8 aspect-[16/9] w-full border border-line bg-cover bg-center dark:border-white/10"
-            style={{ backgroundImage: `url(${post.coverImage})` }}
-          />
-        )}
+        <div
+          className="mt-8 aspect-[16/9] w-full border border-line bg-cover bg-center dark:border-white/10"
+          style={{ backgroundImage: `url(${coverImage})` }}
+        />
       </header>
 
       <div className="prose prose-stone mt-10 max-w-none dark:prose-invert prose-headings:font-serif prose-a:text-accent dark:prose-a:text-brass">
