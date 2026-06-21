@@ -7,39 +7,43 @@ import { site } from "@/lib/site";
 const nav = [
   { href: "/", label: "Inicio" },
   { href: "/publicaciones", label: "Publicaciones" },
-  { href: "/archivo", label: "Archivo" },
   { href: "/sobre-el-proyecto", label: "Sobre el proyecto" },
   { href: "/contacto", label: "Contacto" },
 ];
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-20 border-b border-line/80 bg-paper/92 backdrop-blur dark:border-white/10 dark:bg-night/90">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-        <Link className="flex w-fit items-center" href="/" aria-label={site.name}>
-          <Image
-            alt={site.name}
-            className="h-12 w-auto object-contain"
-            height={96}
-            priority
-            src={siteLogo}
-            width={360}
-          />
-        </Link>
-        <div className="flex items-center justify-between gap-4">
-          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted dark:text-stone-300">
-            {nav.map((item) => (
-              <Link
-                className="transition hover:text-accent dark:hover:text-brass"
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <ThemeToggle />
+    <header className="sticky top-0 z-20 border-b border-line/80 bg-paper/95 backdrop-blur dark:border-white/10 dark:bg-night/92">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="flex items-center justify-between gap-5 py-3">
+          <Link className="flex min-w-0 items-center gap-3" href="/" aria-label={site.name}>
+            <Image
+              alt={site.name}
+              className="h-10 w-auto shrink-0 object-contain"
+              height={96}
+              priority
+              src={siteLogo}
+              width={360}
+            />
+            <span className="hidden border-l border-line pl-3 text-xs uppercase tracking-wide text-muted dark:border-white/10 dark:text-stone-400 sm:block">
+              Publicación económica-financiera
+            </span>
+          </Link>
+          <div className="shrink-0">
+            <ThemeToggle />
+          </div>
         </div>
+        <nav className="flex gap-x-5 overflow-x-auto border-t border-line py-2 text-sm text-muted dark:border-white/10 dark:text-stone-300">
+          {nav.map((item) => (
+            <Link
+              className="whitespace-nowrap transition hover:text-accent dark:hover:text-brass"
+              href={item.href}
+              key={item.href}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );

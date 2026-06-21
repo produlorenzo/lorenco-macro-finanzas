@@ -11,10 +11,10 @@ export function PageHero({
 }) {
   return (
     <section
-      className="relative overflow-hidden border border-line bg-cover bg-center px-6 py-12 dark:border-white/10 sm:px-10 sm:py-16"
+      className="relative min-h-64 overflow-hidden border-b border-line bg-cover bg-center px-6 py-12 dark:border-white/10 sm:px-10 sm:py-16"
       style={{ backgroundImage: `url(${defaultCoverImage})` }}
     >
-      <div className="absolute inset-0 bg-paper/80 dark:bg-night/68" />
+      <div className="absolute inset-0 bg-paper/82 dark:bg-night/72" />
       <div className="relative max-w-3xl">
         {eyebrow && (
           <p className="mb-3 text-sm uppercase text-accent dark:text-brass">{eyebrow}</p>

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
+import { getCategoryBySlug, slugifyCategory } from "@/lib/categories";
 import { getPostCoverImage } from "@/lib/content-config";
 import { formatDate } from "@/lib/format";
 import { getAllPublications, getPostBySlug } from "@/lib/posts";
@@ -50,34 +53,47 @@ export default async function PublicationPage({ params }: Props) {
   }
 
   const coverImage = getPostCoverImage(post.coverImage);
+  const categorySlug = slugifyCategory(post.category);
+  const categoryHref = getCategoryBySlug(categorySlug) ? `/categorias/${categorySlug}` : "/publicaciones";
 
   return (
-    <article className="mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-16">
-      <header>
-        <div className="flex flex-wrap gap-2">
-          {post.tags.map((tag) => (
-            <span className="border border-line px-2 py-1 text-xs uppercase text-muted dark:border-white/10 dark:text-stone-400" key={tag}>
-              {tag}
-            </span>
-          ))}
+    <article className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-16">
+      <header className="border-b border-line pb-8 dark:border-white/10">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm uppercase tracking-wide text-muted dark:text-stone-400">
+          <Link
+            className="font-bold text-accent hover:underline dark:text-brass"
+            href={categoryHref}
+          >
+            {post.category}
+          </Link>
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <span>{post.readingMinutes}</span>
         </div>
         <h1 className="mt-5 font-serif text-4xl font-bold leading-tight text-ink dark:text-paper sm:text-6xl">
           {post.title}
         </h1>
         <p className="mt-5 text-xl leading-8 text-muted dark:text-stone-300">{post.description}</p>
         <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted dark:text-stone-400">
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span>{post.category}</span>
-          <span>{post.readingMinutes}</span>
           <span>{post.author}</span>
         </div>
-        <div
-          className="mt-8 aspect-[16/9] w-full border border-line bg-cover bg-center dark:border-white/10"
-          style={{ backgroundImage: `url(${coverImage})` }}
-        />
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden bg-stone-200 dark:bg-night-soft">
+          <Image alt="" className="object-cover" fill priority sizes="(min-width: 1024px) 64rem, 100vw" src={coverImage} />
+        </div>
+        {post.tags.length > 0 && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span
+                className="border border-line px-2 py-1 text-xs uppercase tracking-wide text-muted dark:border-white/10 dark:text-stone-400"
+                key={tag}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </header>
 
-      <div className="prose prose-stone mt-10 max-w-none dark:prose-invert prose-headings:font-serif prose-a:text-accent dark:prose-a:text-brass">
+      <div className="prose prose-stone mx-auto mt-10 max-w-3xl dark:prose-invert prose-headings:font-serif prose-headings:leading-tight prose-a:text-accent dark:prose-a:text-brass">
         <MDXRemote
           options={{
             mdxOptions: {
@@ -90,7 +106,7 @@ export default async function PublicationPage({ params }: Props) {
       </div>
 
       {post.sources.length > 0 && (
-        <section className="mt-12 border-t border-line pt-8 dark:border-white/10">
+        <section className="mx-auto mt-12 max-w-3xl border-t border-line pt-8 dark:border-white/10">
           <h2 className="font-serif text-2xl font-bold text-ink dark:text-paper">Fuentes consultadas</h2>
           <ul className="mt-4 space-y-2 text-muted dark:text-stone-300">
             {post.sources.map((source) => (

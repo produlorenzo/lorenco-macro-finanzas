@@ -19,7 +19,7 @@ export function ThemeToggle() {
   return (
     <button
       aria-label="Cambiar tema"
-      className="grid h-9 w-9 shrink-0 place-items-center border border-line bg-transparent text-sm text-ink transition hover:border-accent hover:text-accent dark:border-white/15 dark:text-paper dark:hover:border-brass dark:hover:text-brass"
+      className="grid h-9 w-9 shrink-0 place-items-center border border-line bg-transparent text-sm font-bold text-ink transition hover:border-accent hover:text-accent dark:border-white/15 dark:text-paper dark:hover:border-brass dark:hover:text-brass"
       onClick={toggleTheme}
       title="Cambiar tema"
       type="button"

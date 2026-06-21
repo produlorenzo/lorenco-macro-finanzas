@@ -3,11 +3,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localho
 
 export const site = {
   name: "Lorenço Macro & Finanzas",
-  title: "Lorenço Macro & Finanzas | Análisis económico-financiero",
+  title: "Lorenço Macro & Finanzas | Publicación económica-financiera",
   description:
-    "Lecturas sobre la coyuntura macroeconómica y financiera a partir de reportes, datos y fuentes públicas.",
-  headline: "Lecturas sobre la coyuntura macroeconómica y financiera.",
+    "Noticias, opinión y análisis económico-financiero sobre macroeconomía, mercados, sistema financiero y regulación.",
+  headline: "Análisis económico-financiero con foco editorial.",
   dek:
-    "Análisis basado en reportes, datos y fuentes públicas, con foco en Argentina, mercados y sistema financiero.",
+    "Noticias, artículos de opinión y lecturas de reportes oficiales sobre macroeconomía, mercados, regulación y sistema financiero.",
   url: siteUrl,
 };

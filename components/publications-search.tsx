@@ -16,8 +16,8 @@ export function PublicationsSearch({ posts }: { posts: Post[] }) {
 
   return (
     <div>
-      <label className="block text-sm uppercase text-muted dark:text-stone-400" htmlFor="publication-search">
-        Buscar
+      <label className="block text-sm uppercase tracking-wide text-muted dark:text-stone-400" htmlFor="publication-search">
+        Buscar publicaciones
       </label>
       <input
         className="mt-2 w-full border border-line bg-transparent px-4 py-3 text-base text-ink outline-none transition placeholder:text-muted/70 focus:border-accent dark:border-white/10 dark:text-paper dark:placeholder:text-stone-500 dark:focus:border-brass"
@@ -27,6 +27,9 @@ export function PublicationsSearch({ posts }: { posts: Post[] }) {
         type="search"
         value={query}
       />
+      <p className="mt-3 text-sm text-muted dark:text-stone-400">
+        {filteredPosts.length} de {posts.length} publicaciones
+      </p>
       <div className="mt-8">
         <PostList posts={filteredPosts} />
       </div>

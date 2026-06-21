@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
-import { defaultCoverImage } from "@/lib/content-config";
+import { slugifyCategory } from "@/lib/categories";
 import { normalizeSearchText } from "@/lib/format";
 
 export type PostStatus = "draft" | "published";
@@ -116,4 +116,8 @@ export function getArchiveGroups() {
     groups[key] = [...(groups[key] ?? []), post];
     return groups;
   }, {});
+}
+
+export function getPostsByCategory(categorySlug: string) {
+  return getAllPosts().filter((post) => slugifyCategory(post.category) === categorySlug);
 }

@@ -30,7 +30,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+    <form className="space-y-5" onSubmit={handleSubmit}>
       <Field label="Nombre" name="name" required />
       <Field label="Email" name="email" required type="email" />
       <Field label="Asunto" name="subject" required />

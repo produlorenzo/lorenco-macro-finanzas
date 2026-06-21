@@ -15,14 +15,16 @@ export default function ContactPage() {
         title="Contacto"
         description="Consultas, comentarios o propuestas vinculadas al contenido publicado."
       />
-      <div className="prose prose-stone mt-10 max-w-3xl dark:prose-invert">
-        <p>
-          Para consultas, comentarios o propuestas vinculadas al contenido publicado en Lorenço Macro
-          & Finanzas, podés enviar un mensaje a través del formulario de contacto.
-        </p>
-      </div>
-      <div className="max-w-3xl">
-        <ContactForm />
+      <div className="mt-10 grid gap-10 lg:grid-cols-[18rem_1fr]">
+        <div className="border-y border-line py-5 text-sm leading-6 text-muted dark:border-white/10 dark:text-stone-300">
+          <p>
+            Para consultas, comentarios o propuestas vinculadas al contenido publicado en Lorenço
+            Macro & Finanzas, podés enviar un mensaje a través del formulario.
+          </p>
+        </div>
+        <div>
+          <ContactForm />
+        </div>
       </div>
     </section>
   );

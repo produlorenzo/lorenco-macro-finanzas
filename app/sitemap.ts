@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { editorialCategories } from "@/lib/categories";
 import { getAllPosts } from "@/lib/posts";
 import { site } from "@/lib/site";
 
@@ -13,5 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(`${post.date}T00:00:00`),
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  const categoryRoutes = editorialCategories.map((category) => ({
+    url: `${site.url}/categorias/${category.slug}`,
+    lastModified: new Date(),
+  }));
+
+  return [...staticRoutes, ...categoryRoutes, ...postRoutes];
 }
