@@ -15,7 +15,7 @@ export default function AboutPage() {
         description="Un espacio editorial para ordenar señales macroeconómicas y financieras desde fuentes públicas."
       />
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_18rem]">
-        <article className="prose prose-stone max-w-3xl dark:prose-invert prose-headings:font-serif">
+        <article className="prose prose-invert editorial-panel max-w-3xl p-6 prose-headings:font-serif sm:p-8">
           <p>
             Lorenço Macro & Finanzas es un espacio de análisis económico-financiero enfocado en la
             coyuntura macroeconómica, el sistema financiero, los mercados y la lectura de reportes
@@ -30,7 +30,7 @@ export default function AboutPage() {
             ni recomendación de inversión.
           </p>
         </article>
-        <aside className="border-y border-line py-5 text-sm leading-6 text-muted dark:border-white/10 dark:text-stone-300">
+        <aside className="editorial-panel p-5 text-sm leading-6 text-muted dark:text-stone-300">
           <p className="font-bold uppercase tracking-wide text-accent dark:text-brass">Enfoque</p>
           <p className="mt-3">
             Datos públicos, reportes oficiales, regulación, mercado local y lectura macrofinanciera

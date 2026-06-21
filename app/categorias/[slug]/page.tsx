@@ -37,7 +37,7 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
-      <div className="border-b border-line pb-8 dark:border-white/10">
+      <div className="editorial-panel p-6 sm:p-8">
         <Link className="text-sm uppercase tracking-wide text-accent hover:underline dark:text-brass" href="/publicaciones">
           Publicaciones
         </Link>
@@ -48,7 +48,7 @@ export default async function CategoryPage({ params }: Props) {
           {category.description}
         </p>
       </div>
-      <div className="mt-8">
+      <div className="editorial-panel mt-8 p-5">
         <PostList posts={posts} />
       </div>
     </section>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPostCoverImage } from "@/lib/content-config";
+import { getPostCoverImage, hasCustomPostCover } from "@/lib/content-config";
 import { formatDate } from "@/lib/format";
 import type { Post } from "@/lib/posts";
 
@@ -10,23 +10,35 @@ type ArticleCardProps = {
 };
 
 export function ArticleCard({ post, variant = "row" }: ArticleCardProps) {
+  const hasCover = hasCustomPostCover(post.coverImage);
+
   if (variant === "feature") {
     return (
-      <article className="grid gap-6 border-b border-line pb-8 dark:border-white/10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-        <Link
-          aria-label={post.title}
-          className="group relative block aspect-[16/10] overflow-hidden bg-stone-200 dark:bg-night-soft"
-          href={post.urlPath}
-        >
-          <Image
-            alt=""
-            className="object-cover transition duration-300 group-hover:scale-[1.02]"
-            fill
-            priority
-            sizes="(min-width: 1024px) 52vw, 100vw"
-            src={getPostCoverImage(post.coverImage)}
-          />
-        </Link>
+      <article className="editorial-panel grid gap-6 p-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+        {hasCover ? (
+          <Link
+            aria-label={post.title}
+            className="group relative block aspect-[16/10] overflow-hidden bg-night-soft"
+            href={post.urlPath}
+          >
+            <Image
+              alt=""
+              className="object-cover transition duration-300 group-hover:scale-[1.02]"
+              fill
+              priority
+              sizes="(min-width: 1024px) 52vw, 100vw"
+              src={getPostCoverImage(post.coverImage)}
+            />
+          </Link>
+        ) : (
+          <Link
+            aria-label={post.title}
+            className="flex min-h-64 items-end border border-line bg-night-soft/70 p-5 transition hover:border-accent"
+            href={post.urlPath}
+          >
+            <span className="text-sm uppercase tracking-wide text-brass">{post.category}</span>
+          </Link>
+        )}
         <div>
           <ArticleMeta post={post} />
           <h2 className="mt-3 font-serif text-4xl font-bold leading-tight text-ink dark:text-paper sm:text-5xl">
@@ -58,19 +70,29 @@ export function ArticleCard({ post, variant = "row" }: ArticleCardProps) {
 
   return (
     <article className="grid gap-5 border-b border-line py-7 dark:border-white/10 sm:grid-cols-[11rem_1fr]">
-      <Link
-        aria-label={post.title}
-        className="group relative block aspect-[16/10] overflow-hidden bg-stone-200 dark:bg-night-soft"
-        href={post.urlPath}
-      >
-        <Image
-          alt=""
-          className="object-cover transition duration-300 group-hover:scale-[1.02]"
-          fill
-          sizes="(min-width: 640px) 11rem, 100vw"
-          src={getPostCoverImage(post.coverImage)}
-        />
-      </Link>
+      {hasCover ? (
+        <Link
+          aria-label={post.title}
+          className="group relative block aspect-[16/10] overflow-hidden bg-night-soft"
+          href={post.urlPath}
+        >
+          <Image
+            alt=""
+            className="object-cover transition duration-300 group-hover:scale-[1.02]"
+            fill
+            sizes="(min-width: 640px) 11rem, 100vw"
+            src={getPostCoverImage(post.coverImage)}
+          />
+        </Link>
+      ) : (
+        <Link
+          aria-label={post.title}
+          className="flex aspect-[16/10] items-end border border-line bg-night-soft/65 p-3 text-xs uppercase tracking-wide text-brass transition hover:border-accent"
+          href={post.urlPath}
+        >
+          {post.category}
+        </Link>
+      )}
       <div>
         <ArticleMeta post={post} />
         <h2 className="mt-2 font-serif text-2xl font-bold leading-snug text-ink dark:text-paper">

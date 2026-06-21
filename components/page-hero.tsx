@@ -1,5 +1,3 @@
-import { defaultCoverImage } from "@/lib/content-config";
-
 export function PageHero({
   eyebrow,
   title,
@@ -10,11 +8,8 @@ export function PageHero({
   description?: string;
 }) {
   return (
-    <section
-      className="relative min-h-64 overflow-hidden border-b border-line bg-cover bg-center px-6 py-12 dark:border-white/10 sm:px-10 sm:py-16"
-      style={{ backgroundImage: `url(${defaultCoverImage})` }}
-    >
-      <div className="absolute inset-0 bg-paper/82 dark:bg-night/72" />
+    <section className="editorial-panel relative min-h-64 overflow-hidden px-6 py-12 sm:px-10 sm:py-16">
+      <div className="absolute inset-0 bg-gradient-to-br from-night/15 via-paper/30 to-transparent" />
       <div className="relative max-w-3xl">
         {eyebrow && (
           <p className="mb-3 text-sm uppercase text-accent dark:text-brass">{eyebrow}</p>

@@ -10,7 +10,7 @@ const footerNav = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line/80 dark:border-white/10">
+    <footer className="border-t border-line bg-night/90 backdrop-blur">
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 text-sm text-muted dark:text-stone-400 sm:px-8 lg:grid-cols-[1fr_auto]">
         <div className="max-w-xl">
           <p className="font-serif text-2xl font-bold text-ink dark:text-paper">{site.name}</p>

@@ -11,21 +11,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#f7f2ea",
-        ink: "#171412",
-        muted: "#6d645c",
-        line: "#d9cdbf",
-        accent: "#8f3f2f",
-        brass: "#9f7a3a",
-        night: "#11100f",
-        "night-soft": "#1b1917"
+        paper: "#071421",
+        ink: "#f7fbff",
+        muted: "#b8c5d6",
+        line: "#38516b",
+        accent: "#d7ae5f",
+        brass: "#f0c978",
+        night: "#030912",
+        "night-soft": "#0b1a2a"
       },
       fontFamily: {
         serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
         sans: ["Arial", "Helvetica", "sans-serif"]
       },
       boxShadow: {
-        rule: "inset 0 -1px 0 rgba(143, 63, 47, 0.24)"
+        rule: "inset 0 -1px 0 rgba(215, 174, 95, 0.36)"
       }
     },
   },

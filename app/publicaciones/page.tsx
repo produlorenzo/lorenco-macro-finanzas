@@ -14,7 +14,7 @@ export default function PublicationsPage() {
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
-      <div className="grid gap-8 border-b border-line pb-8 dark:border-white/10 lg:grid-cols-[1fr_20rem]">
+      <div className="editorial-panel grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_20rem]">
         <div className="max-w-3xl">
           <p className="text-sm uppercase tracking-wide text-accent dark:text-brass">Archivo editorial</p>
           <h1 className="mt-3 font-serif text-4xl font-bold leading-tight text-ink dark:text-paper sm:text-5xl">
@@ -37,7 +37,7 @@ export default function PublicationsPage() {
           ))}
         </div>
       </div>
-      <div className="mt-8">
+      <div className="editorial-panel mt-8 p-5">
         <PublicationsSearch posts={posts} />
       </div>
     </section>

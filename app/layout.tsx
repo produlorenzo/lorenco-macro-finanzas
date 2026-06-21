@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `try{const t=localStorage.getItem("theme");if(t==="dark"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}`,
           }}
         />
-        <div className="min-h-screen border-x border-line/70 bg-paper/88 dark:border-white/10 dark:bg-night/88">
+        <div className="min-h-screen">
           <Header />
           <main>{children}</main>
           <Footer />

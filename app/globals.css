@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 .dark {
@@ -16,25 +16,51 @@ html {
 
 body {
   background:
-    linear-gradient(90deg, rgba(143, 63, 47, 0.055) 1px, transparent 1px),
-    #f7f2ea;
-  background-size: 72px 72px;
-  color: #171412;
+    linear-gradient(180deg, rgba(3, 9, 18, 0.86), rgba(3, 9, 18, 0.94)),
+    radial-gradient(circle at 18% 12%, rgba(41, 96, 148, 0.36), transparent 32rem),
+    url("/images/lorenco-default-cover.png");
+  background-attachment: fixed;
+  background-color: #030912;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #f7fbff;
 }
 
 .dark body {
   background:
-    linear-gradient(90deg, rgba(159, 122, 58, 0.08) 1px, transparent 1px),
-    #11100f;
-  color: #f7f2ea;
+    linear-gradient(180deg, rgba(3, 9, 18, 0.86), rgba(3, 9, 18, 0.94)),
+    radial-gradient(circle at 18% 12%, rgba(41, 96, 148, 0.36), transparent 32rem),
+    url("/images/lorenco-default-cover.png");
+  background-attachment: fixed;
+  background-color: #030912;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #f7fbff;
 }
 
 ::selection {
-  background: rgba(143, 63, 47, 0.24);
+  background: rgba(215, 174, 95, 0.28);
+}
+
+@media (max-width: 768px) {
+  body,
+  .dark body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
+
+.editorial-panel {
+  background: rgba(7, 20, 33, 0.78);
+  border: 1px solid rgba(165, 187, 215, 0.18);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(10px);
 }
 
 .prose :where(a):not(:where([class~="not-prose"] *)) {
-  text-decoration-color: rgba(143, 63, 47, 0.45);
+  text-decoration-color: rgba(215, 174, 95, 0.5);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
 }
@@ -42,7 +68,7 @@ body {
 .prose :where(img):not(:where([class~="not-prose"] *)) {
   width: 100%;
   height: auto;
-  border: 1px solid rgba(143, 63, 47, 0.18);
+  border: 1px solid rgba(165, 187, 215, 0.22);
   margin-top: 2rem;
   margin-bottom: 0.75rem;
 }
@@ -52,9 +78,9 @@ body {
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
-  border: 1px solid rgba(143, 63, 47, 0.18);
+  border: 1px solid rgba(165, 187, 215, 0.22);
 }
 
 .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
-  border-left-color: #8f3f2f;
+  border-left-color: #d7ae5f;
 }

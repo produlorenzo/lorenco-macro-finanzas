@@ -13,7 +13,7 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
-      <section className="border-b border-line pb-8 dark:border-white/10">
+      <section className="editorial-panel p-6 sm:p-8">
         <p className="text-sm uppercase tracking-wide text-accent dark:text-brass">{site.name}</p>
         <div className="mt-4 grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-end">
           <div>
@@ -48,7 +48,7 @@ export default function HomePage() {
       </section>
 
       {secondaryPosts.length > 0 && (
-        <section className="grid gap-8 border-b border-line pb-10 dark:border-white/10 lg:grid-cols-3">
+        <section className="editorial-panel grid gap-8 p-5 lg:grid-cols-3">
           {secondaryPosts.map((post) => (
             <ArticleCard key={post.slug} post={post} variant="compact" />
           ))}
@@ -56,7 +56,7 @@ export default function HomePage() {
       )}
 
       <section className="grid gap-10 py-10 lg:grid-cols-[1fr_18rem]">
-        <div>
+        <div className="editorial-panel p-5">
           <div className="mb-5 flex items-end justify-between gap-4">
             <h2 className="font-serif text-3xl font-bold text-ink dark:text-paper">Últimas publicaciones</h2>
           </div>
@@ -64,7 +64,7 @@ export default function HomePage() {
         </div>
 
         <aside className="space-y-8">
-          <section>
+          <section className="editorial-panel p-5">
             <h2 className="border-b border-line pb-3 font-serif text-2xl font-bold text-ink dark:border-white/10 dark:text-paper">
               Secciones
             </h2>
@@ -84,7 +84,7 @@ export default function HomePage() {
             </div>
           </section>
 
-          <section className="border-y border-line py-5 dark:border-white/10">
+          <section className="editorial-panel p-5">
             <h2 className="font-serif text-2xl font-bold text-ink dark:text-paper">Sobre el proyecto</h2>
             <p className="mt-3 text-sm leading-6 text-muted dark:text-stone-300">
               Lorenço Macro & Finanzas ordena información económica y financiera desde fuentes
