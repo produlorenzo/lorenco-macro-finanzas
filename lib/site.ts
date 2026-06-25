@@ -1,13 +1,12 @@
-const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://lorenco-magazine.vercel.app";
 
 export const site = {
-  name: "Lorenço Macro & Finanzas",
-  title: "Lorenço Macro & Finanzas | Publicación económica-financiera",
+  name: "Lorenço Magazine",
+  title: "Lorenço Magazine",
   description:
-    "Noticias, opinión y análisis económico-financiero sobre macroeconomía, mercados, sistema financiero y regulación.",
-  headline: "Análisis económico-financiero con foco editorial.",
+    "Proyecto individual de análisis económico-financiero sobre macroeconomía, finanzas, normativas, historia económica y reflexiones sobre mercados y datos públicos.",
+  headline: "Lecturas económicas y financieras en formato magazine.",
   dek:
-    "Noticias, artículos de opinión y lecturas de reportes oficiales sobre macroeconomía, mercados, regulación y sistema financiero.",
+    "Análisis sobre coyuntura macroeconómica, finanzas, normativas, historia económica y reflexiones sobre mercados y datos públicos.",
   url: siteUrl,
 };

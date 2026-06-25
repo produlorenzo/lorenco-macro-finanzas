@@ -29,13 +29,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es">
       <body className="min-h-screen font-sans antialiased">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{const t=localStorage.getItem("theme");if(t==="dark"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}`,
-          }}
-        />
         <div className="min-h-screen">
           <Header />
           <main>{children}</main>

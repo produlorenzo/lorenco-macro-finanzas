@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
+:root,
 .dark {
   color-scheme: dark;
 }
@@ -16,27 +13,10 @@ html {
 
 body {
   background:
-    linear-gradient(180deg, rgba(3, 9, 18, 0.86), rgba(3, 9, 18, 0.94)),
-    radial-gradient(circle at 18% 12%, rgba(41, 96, 148, 0.36), transparent 32rem),
-    url("/images/lorenco-default-cover.png");
+    radial-gradient(circle at 18% 8%, rgba(36, 89, 140, 0.32), transparent 32rem),
+    radial-gradient(circle at 78% 0%, rgba(215, 174, 95, 0.12), transparent 24rem),
+    linear-gradient(180deg, #030912 0%, #071421 46%, #030912 100%);
   background-attachment: fixed;
-  background-color: #030912;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: #f7fbff;
-}
-
-.dark body {
-  background:
-    linear-gradient(180deg, rgba(3, 9, 18, 0.86), rgba(3, 9, 18, 0.94)),
-    radial-gradient(circle at 18% 12%, rgba(41, 96, 148, 0.36), transparent 32rem),
-    url("/images/lorenco-default-cover.png");
-  background-attachment: fixed;
-  background-color: #030912;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
   color: #f7fbff;
 }
 
@@ -45,18 +25,26 @@ body {
 }
 
 @media (max-width: 768px) {
-  body,
-  .dark body {
+  body {
     background-attachment: scroll;
-    background-position: center top;
   }
 }
 
 .editorial-panel {
-  background: rgba(7, 20, 33, 0.78);
+  background: rgba(7, 20, 33, 0.82);
   border: 1px solid rgba(165, 187, 215, 0.18);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(10px);
+}
+
+.hero-panel {
+  background:
+    linear-gradient(90deg, rgba(3, 9, 18, 0.92), rgba(7, 20, 33, 0.76)),
+    radial-gradient(circle at 84% 18%, rgba(215, 174, 95, 0.2), transparent 20rem),
+    radial-gradient(circle at 68% 55%, rgba(36, 89, 140, 0.34), transparent 28rem),
+    #071421;
+  border: 1px solid rgba(165, 187, 215, 0.2);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
 }
 
 .prose :where(a):not(:where([class~="not-prose"] *)) {

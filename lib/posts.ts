@@ -2,14 +2,19 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
-import { slugifyCategory } from "@/lib/categories";
+import {
+  getCategoryByLabel,
+  slugifyCategory,
+  validAuthors,
+  validCategoryLabels,
+} from "@/lib/categories";
 import { normalizeSearchText } from "@/lib/format";
 
 export type PostStatus = "draft" | "published";
 
 export type Source = {
   title: string;
-  url?: string;
+  url: string;
 };
 
 export type Post = {
@@ -21,6 +26,7 @@ export type Post = {
   author: string;
   status: PostStatus;
   category: string;
+  categorySlug: string;
   tags: string[];
   coverImage?: string;
   sources: Source[];
@@ -29,34 +35,50 @@ export type Post = {
   searchText: string;
 };
 
-const postsDirectory = path.join(process.cwd(), "content", "publicaciones");
+const postsDirectory = path.join(process.cwd(), "content", "notas");
+const requiredFields = ["title", "description", "date", "author", "status", "category", "tags", "sources"];
 
-function ensureString(value: unknown, fallback = "") {
-  return typeof value === "string" && value.trim() ? value : fallback;
+function fail(fileName: string, message: string): never {
+  throw new Error(`Frontmatter inválido en content/notas/${fileName}: ${message}`);
 }
 
-function ensureStringArray(value: unknown) {
-  return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
+function requireString(fileName: string, data: Record<string, unknown>, field: string) {
+  const value = data[field];
+  if (typeof value !== "string" || !value.trim()) {
+    fail(fileName, `falta el campo obligatorio "${field}" o no es texto.`);
+  }
+  return value.trim();
 }
 
-function ensureSources(value: unknown): Source[] {
-  if (!Array.isArray(value)) return [];
+function requireStringArray(fileName: string, data: Record<string, unknown>, field: string) {
+  const value = data[field];
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "string")) {
+    fail(fileName, `"${field}" debe ser un array de textos.`);
+  }
+  return value as string[];
+}
 
-  return value
-    .map((item) => {
-      if (typeof item === "string") return { title: item };
-      if (!item || typeof item !== "object") return null;
+function requireSources(fileName: string, data: Record<string, unknown>) {
+  const value = data.sources;
+  if (!Array.isArray(value)) {
+    fail(fileName, `"sources" debe existir y ser un array.`);
+  }
 
-      const source = item as Record<string, unknown>;
-      const title = ensureString(source.title);
-      if (!title) return null;
+  return value.map((item, index) => {
+    if (!item || typeof item !== "object") {
+      fail(fileName, `sources[${index}] debe tener title y url.`);
+    }
 
-      return {
-        title,
-        url: ensureString(source.url) || undefined,
-      };
-    })
-    .filter((item): item is Source => Boolean(item));
+    const source = item as Record<string, unknown>;
+    if (typeof source.title !== "string" || !source.title.trim()) {
+      fail(fileName, `sources[${index}].title es obligatorio.`);
+    }
+    if (typeof source.url !== "string" || !source.url.trim()) {
+      fail(fileName, `sources[${index}].url es obligatorio.`);
+    }
+
+    return { title: source.title.trim(), url: source.url.trim() };
+  });
 }
 
 function readPostFile(fileName: string): Post {
@@ -64,26 +86,57 @@ function readPostFile(fileName: string): Post {
   const fullPath = path.join(postsDirectory, fileName);
   const file = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(file);
-  const title = ensureString(data.title);
-  const description = ensureString(data.description);
-  const tags = ensureStringArray(data.tags);
-  const coverImage = ensureString(data.coverImage) || undefined;
+  const frontmatter = data as Record<string, unknown>;
+
+  for (const field of requiredFields) {
+    if (!(field in frontmatter)) {
+      fail(fileName, `falta el campo obligatorio "${field}".`);
+    }
+  }
+
+  const title = requireString(fileName, frontmatter, "title");
+  const description = requireString(fileName, frontmatter, "description");
+  const date = requireString(fileName, frontmatter, "date");
+  const author = requireString(fileName, frontmatter, "author");
+  const status = requireString(fileName, frontmatter, "status");
+  const category = requireString(fileName, frontmatter, "category");
+  const tags = requireStringArray(fileName, frontmatter, "tags");
+  const sources = requireSources(fileName, frontmatter);
+  const coverImage = typeof frontmatter.coverImage === "string" && frontmatter.coverImage.trim()
+    ? frontmatter.coverImage.trim()
+    : undefined;
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    fail(fileName, `"date" debe usar formato YYYY-MM-DD.`);
+  }
+  if (status !== "published" && status !== "draft") {
+    fail(fileName, `"status" debe ser "published" o "draft".`);
+  }
+  if (!validCategoryLabels.includes(category as (typeof validCategoryLabels)[number])) {
+    fail(fileName, `"category" debe ser una de: ${validCategoryLabels.join(", ")}.`);
+  }
+  if (!validAuthors.includes(author as (typeof validAuthors)[number])) {
+    fail(fileName, `"author" debe ser uno de: ${validAuthors.join(", ")}.`);
+  }
+
+  const categorySlug = getCategoryByLabel(category)?.slug ?? slugifyCategory(category);
 
   return {
     slug,
-    urlPath: `/publicaciones/${slug}`,
+    urlPath: `/notas/${slug}`,
     title,
     description,
-    date: ensureString(data.date),
-    author: ensureString(data.author, "Lorenço Macro & Finanzas"),
-    status: data.status === "published" ? "published" : "draft",
-    category: ensureString(data.category, ensureString(data.categoria, "Análisis")),
+    date,
+    author,
+    status,
+    category,
+    categorySlug,
     tags,
     coverImage,
-    sources: ensureSources(data.sources),
+    sources,
     body: content,
     readingMinutes: readingTime(content).text.replace("min read", "min de lectura"),
-    searchText: normalizeSearchText([title, description, tags.join(" "), content].join(" ")),
+    searchText: normalizeSearchText([title, description, category, author, tags.join(" "), content].join(" ")),
   };
 }
 
@@ -98,26 +151,19 @@ export function getAllPosts({ includeDrafts = false } = {}) {
     .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
 }
 
-export const getAllPublications = getAllPosts;
+export const getAllNotes = getAllPosts;
 
 export function getPostBySlug(slug: string) {
-  const post = getAllPosts({ includeDrafts: false }).find((item) => item.slug === slug);
-  return post ?? null;
-}
-
-export function getArchiveGroups() {
-  return getAllPosts().reduce<Record<string, Post[]>>((groups, post) => {
-    const date = new Date(`${post.date}T00:00:00`);
-    const key = new Intl.DateTimeFormat("es-AR", {
-      year: "numeric",
-      month: "long",
-    }).format(date);
-
-    groups[key] = [...(groups[key] ?? []), post];
-    return groups;
-  }, {});
+  return getAllPosts({ includeDrafts: false }).find((item) => item.slug === slug) ?? null;
 }
 
 export function getPostsByCategory(categorySlug: string) {
-  return getAllPosts().filter((post) => slugifyCategory(post.category) === categorySlug);
+  return getAllPosts().filter((post) => post.categorySlug === categorySlug);
+}
+
+export function getPostsByCategoryMap() {
+  return getAllPosts().reduce<Record<string, Post[]>>((groups, post) => {
+    groups[post.categorySlug] = [...(groups[post.categorySlug] ?? []), post];
+    return groups;
+  }, {});
 }

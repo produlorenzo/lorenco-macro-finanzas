@@ -4,7 +4,7 @@ import path from "node:path";
 const title = process.argv.slice(2).join(" ").trim();
 
 if (!title) {
-  console.error('Uso: npm run new:post "titulo de la publicacion"');
+  console.error('Uso: npm run new:post "titulo de la nota"');
   process.exit(1);
 }
 
@@ -25,7 +25,7 @@ function titleCase(value) {
 
 const slug = slugify(title);
 const today = new Date().toISOString().slice(0, 10);
-const postsDir = path.join(process.cwd(), "content", "publicaciones");
+const postsDir = path.join(process.cwd(), "content", "notas");
 const target = path.join(postsDir, `${slug}.mdx`);
 
 if (!slug) {
@@ -34,7 +34,7 @@ if (!slug) {
 }
 
 if (fs.existsSync(target)) {
-  console.error(`Ya existe una publicación en ${target}`);
+  console.error(`Ya existe una nota en ${target}`);
   process.exit(1);
 }
 
@@ -44,12 +44,14 @@ const content = `---
 title: "${titleCase(title)}"
 description: ""
 date: "${today}"
-author: "Lorenço Macro & Finanzas"
+author: "Martín Ferrer"
 status: "draft"
-category: "Análisis"
+category: "Macro"
 tags: []
 coverImage: ""
-sources: []
+sources:
+  - title: ""
+    url: ""
 ---
 
 Contenido pendiente.
@@ -58,5 +60,5 @@ Contenido pendiente.
 fs.writeFileSync(target, content, "utf8");
 
 console.log(`Borrador creado: ${target}`);
-console.log("Imagen destacada opcional: si coverImage queda vacío, se usa /images/lorenco-default-cover.png.");
+console.log("Imagen opcional: guardar en public/images/notas/ y completar coverImage.");
 console.log('Para publicar, completá el contenido y cambiá status a "published".');
