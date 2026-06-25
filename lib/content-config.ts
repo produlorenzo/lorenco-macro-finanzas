@@ -1,5 +1,8 @@
-export const defaultCoverImage = "/images/lorenco-default-cover.png";
-export const siteLogo = "/images/lorenco-logo.png";
+import settings from "@/content/site/settings.json";
+
+export const defaultCoverImage = settings.defaultCoverImage;
+export const siteLogo = settings.logoImage;
+export const heroBackgroundImage = settings.heroBackgroundImage;
 
 export function getPostCoverImage(coverImage?: string) {
   return coverImage && coverImage.trim() ? coverImage : defaultCoverImage;

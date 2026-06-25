@@ -9,6 +9,7 @@ import { getPostCoverImage } from "@/lib/content-config";
 import { formatDate } from "@/lib/format";
 import { getAllNotes, getPostBySlug } from "@/lib/posts";
 import { site } from "@/lib/site";
+import { pagesContent } from "@/lib/siteContent";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -93,7 +94,7 @@ export default async function NotePage({ params }: Props) {
       </div>
 
       <section className="editorial-panel mx-auto mt-12 max-w-3xl p-6 sm:p-8">
-        <h2 className="font-serif text-2xl font-bold text-ink">Fuentes consultadas</h2>
+        <h2 className="font-serif text-2xl font-bold text-ink">{pagesContent.article.sourcesTitle}</h2>
         <ul className="mt-4 space-y-2 text-muted">
           {post.sources.map((source) => (
             <li key={`${source.title}${source.url}`}>

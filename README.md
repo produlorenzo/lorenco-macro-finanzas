@@ -45,11 +45,7 @@ Si falta un campo obligatorio, el build falla con un mensaje claro.
 
 ## Categorías válidas
 
-- Macro
-- Finanzas
-- Normativas
-- Historia
-- Reflexiones
+Las categorías se editan desde `content/site/navigation.json`, dentro de la lista `primary`.
 
 ## Autores válidos
 
@@ -63,6 +59,7 @@ Si falta un campo obligatorio, el build falla con un mensaje claro.
 
 ```text
 content/notas/              Notas publicadas o borradores
+content/site/               Textos generales editables del sitio
 public/images/notas/        Imágenes opcionales de notas
 public/images/              Logo e imagen default
 app/notas/[slug]/           Página de nota
@@ -73,6 +70,22 @@ app/normativas/             Categoría Normativas
 app/historia/               Categoría Historia
 app/reflexiones/            Categoría Reflexiones
 ```
+
+## Cómo editar textos generales del sitio
+
+Las notas y artículos se editan en `content/notas/` como archivos `.md` o `.mdx`.
+
+Los textos generales del sitio se editan en `content/site/`:
+
+- `settings.json`: nombre del sitio, SEO general, email, URL e imágenes base.
+- `home.json`: textos, títulos, límites y bloques visibles de la home.
+- `navigation.json`: labels y enlaces de navegación.
+- `footer.json`: textos del footer, disclaimer y aclaración de autores ficticios.
+- `pages.json`: textos de Sobre el proyecto, Contacto, Buscar, categorías y artículos.
+
+Las imágenes van en `public/images/`. Después de editar y hacer commit/push, Vercel republica automáticamente.
+
+Si falta un archivo de `content/site/` o un campo obligatorio, el build falla con un mensaje claro.
 
 ## Imágenes
 

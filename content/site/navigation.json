@@ -1,0 +1,16 @@
+{
+  "primary": [
+    { "label": "Macro", "href": "/macro" },
+    { "label": "Finanzas", "href": "/finanzas" },
+    { "label": "Normativas", "href": "/normativas" },
+    { "label": "Historia", "href": "/historia" },
+    { "label": "Reflexiones", "href": "/reflexiones" }
+  ],
+  "secondary": [
+    { "label": "Buscar", "href": "/buscar" },
+    { "label": "Sobre el proyecto", "href": "/sobre-el-proyecto" },
+    { "label": "Contacto", "href": "/contacto" }
+  ],
+  "brandSuffix": "Magazine",
+  "tagline": "Editorial financiero"
+}

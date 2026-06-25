@@ -1,9 +1,14 @@
+import { navigationContent } from "@/lib/siteContent";
+
+function categorySlugFromHref(href: string) {
+  return href.replace(/^\/+/, "").replace(/\/+$/, "");
+}
+
 export const editorialCategories = [
-  { label: "Macro", slug: "macro" },
-  { label: "Finanzas", slug: "finanzas" },
-  { label: "Normativas", slug: "normativas" },
-  { label: "Historia", slug: "historia" },
-  { label: "Reflexiones", slug: "reflexiones" },
+  ...navigationContent.primary.map((item) => ({
+    label: item.label,
+    slug: categorySlugFromHref(item.href),
+  })),
 ] as const;
 
 export const validCategoryLabels = editorialCategories.map((category) => category.label);
