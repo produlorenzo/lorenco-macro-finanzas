@@ -17,7 +17,7 @@ npm run build
 1. Crear un archivo `.md` o `.mdx` en `content/notas/`.
 2. Completar el frontmatter estándar.
 3. Guardar una imagen opcional en `public/images/notas/`.
-4. Si `coverImage` queda vacío, se usa `/images/lorenco-default-cover.png`.
+4. Si `coverImage` queda vacío, se puede completar con `npm run assign:covers`.
 5. Hacer commit y push.
 6. Vercel publica automáticamente.
 
@@ -94,7 +94,7 @@ Si falta un archivo de `content/site/` o un campo obligatorio, el build falla co
 Imagen default:
 
 ```text
-public/images/lorenco-default-cover.png
+public/images/covers/default/lorenco-default-cover.png
 ```
 
 Logo:
@@ -109,10 +109,32 @@ Imágenes de notas:
 public/images/notas/
 ```
 
+Imágenes automáticas de portada por categoría:
+
+```text
+public/images/covers/[categoria]/
+```
+
+Ejemplos:
+
+```text
+public/images/covers/finanzas/finanzas-01.png
+public/images/covers/finanzas/finanzas-02.png
+public/images/covers/finanzas/finanzas-03.png
+```
+
+Para asignar portadas automáticamente a notas que tengan `coverImage` vacío:
+
+```bash
+npm run assign:covers
+```
+
+La asignación respeta cualquier `coverImage` ya escrito en el frontmatter. Para cada categoría, usa todas las imágenes disponibles antes de repetir la primera del ciclo. Si una categoría no tiene imágenes propias, usa `/images/covers/default/lorenco-default-cover.png`.
+
 Ejemplo:
 
 ```mdx
-coverImage: "/images/notas/nombre-de-la-imagen.png"
+coverImage: "/images/covers/finanzas/finanzas-01.png"
 ```
 
 ## Vercel
