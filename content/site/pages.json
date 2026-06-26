@@ -4,14 +4,14 @@
     "eyebrow": "Institucional",
     "seoDescription": "Información institucional sobre Lorenço Magazine.",
     "body": [
-      "Lorenço Magazine es un proyecto individual de análisis económico-financiero, enfocado en coyuntura macroeconómica, finanzas, normativas, historia económica y reflexiones sobre mercados y datos públicos.",
+      "Lorenço Magazine surge como proyecto personal, con el objetivo doble de, por un lado informar, y por otro incorporar (mediante su uso) la inteligencia artificial como herramienta de trabajo.",
       "Los autores que firman las notas son personajes ficticios.",
-      "El contenido tiene fines informativos y analíticos. No constituye asesoramiento financiero ni recomendación de inversión."
+      "El contenido tiene fines informativos y educativos. No se constituye asesoramiento financiero ni recomendación de inversión."
     ]
   },
   "contact": {
-    "title": "Contacto",
-    "eyebrow": "Contacto",
+    "title": "",
+    "eyebrow": "Contactate con nosotros",
     "seoDescription": "Contacto con Lorenço Magazine.",
     "body": "Para consultas, comentarios o propuestas vinculadas al contenido publicado en Lorenço Magazine, podés escribir a:",
     "email": "produ.lorenzo@gmail.com"
