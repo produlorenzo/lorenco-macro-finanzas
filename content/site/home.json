@@ -1,11 +1,11 @@
 {
   "heroEyebrow": "Lorenço Magazine",
   "heroTitle": "Lecturas económicas y financieras en formato magazine.",
-  "heroDescription": "Análisis sobre coyuntura macroeconómica, finanzas, normativas, historia económica y reflexiones sobre mercados y datos públicos.",
+  "heroDescription": "Lecturas económicas y financieras en formato magazine.",
   "mainSectionTitle": "Nota principal",
   "searchLinkLabel": "Buscar notas",
   "emptyMainText": "Todavía no hay notas publicadas.",
-  "latestSectionTitle": "Últimas notas",
+  "latestSectionTitle": "Últimas publicaciones",
   "categoryBlocksTitle": "Secciones",
   "categoryViewLabel": "Ver sección",
   "emptyCategoryText": "Todavía no hay notas publicadas en esta categoría.",
