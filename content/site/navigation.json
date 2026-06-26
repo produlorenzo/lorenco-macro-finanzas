@@ -4,7 +4,8 @@
     { "label": "Finanzas", "href": "/finanzas" },
     { "label": "Normativas", "href": "/normativas" },
     { "label": "Historia", "href": "/historia" },
-    { "label": "Reflexiones", "href": "/reflexiones" }
+    { "label": "Reflexiones", "href": "/reflexiones" },
+    { "label": "Recursos", "href": "/recursos" }
   ],
   "secondary": [
     { "label": "Buscar", "href": "/buscar" },

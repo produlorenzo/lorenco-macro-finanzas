@@ -30,10 +30,10 @@ El slug sale automáticamente del nombre del archivo. No agregar `slug` al front
 title: "Título de la nota"
 description: "Bajada breve"
 date: "YYYY-MM-DD"
-author: "Martín Ferrer"
+author: "Admin Lorenço"
 status: "published"
-category: "Macro"
-tags: ["macro", "datos"]
+category: "Recursos"
+tags: ["recursos", "datos"]
 coverImage: ""
 sources:
   - title: "Fuente consultada"
@@ -54,6 +54,7 @@ Las categorías se editan desde `content/site/navigation.json`, dentro de la lis
 - Julián Rivas
 - Emilia Duarte
 - Tomás Alvarado
+- Admin Lorenço
 
 ## Estructura
 
@@ -69,6 +70,7 @@ app/finanzas/               Categoría Finanzas
 app/normativas/             Categoría Normativas
 app/historia/               Categoría Historia
 app/reflexiones/            Categoría Reflexiones
+app/recursos/               Categoría Recursos
 ```
 
 ## Cómo editar textos generales del sitio

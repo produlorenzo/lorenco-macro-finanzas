@@ -19,6 +19,7 @@ export const validAuthors = [
   "Julián Rivas",
   "Emilia Duarte",
   "Tomás Alvarado",
+  "Admin Lorenço",
 ] as const;
 
 export type CategoryLabel = (typeof validCategoryLabels)[number];
