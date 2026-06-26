@@ -12,7 +12,7 @@
   "showHero": true,
   "showMainNote": true,
   "showLatestNotes": true,
-  "showCategoryBlocks": true,
+  "showCategoryBlocks": false,
   "latestNotesLimit": 6,
   "categoryNotesLimit": 3
 }
