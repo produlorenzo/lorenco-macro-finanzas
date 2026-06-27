@@ -15,7 +15,7 @@ export default function HomePage() {
       {homeContent.showHero && (
         <section
           className="hero-panel overflow-hidden bg-cover bg-center p-6 sm:p-8"
-          style={{ backgroundImage: `linear-gradient(90deg, rgba(3, 9, 18, 0.92), rgba(7, 20, 33, 0.76)), url(${heroBackgroundImage})` }}
+          style={{ backgroundImage: `linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.84)), url(${heroBackgroundImage})` }}
         >
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-wide text-accent">{homeContent.heroEyebrow}</p>
@@ -44,7 +44,7 @@ export default function HomePage() {
       )}
 
       {homeContent.showLatestNotes && latestPosts.length > 0 && (
-        <section className="editorial-panel p-5">
+        <section className="editorial-panel p-5 sm:p-6">
           <h2 className="font-serif text-3xl font-bold text-ink">{homeContent.latestSectionTitle}</h2>
           <div className="mt-4">
             {latestPosts.slice(0, homeContent.latestNotesLimit).map((post) => (
@@ -62,7 +62,7 @@ export default function HomePage() {
               const categoryPosts = postsByCategory[category.slug]?.slice(0, homeContent.categoryNotesLimit) ?? [];
 
               return (
-                <section className="editorial-panel p-5" key={category.slug}>
+                <section className="editorial-panel p-5 sm:p-6" key={category.slug}>
                   <div className="flex items-center justify-between gap-4 border-b border-line pb-3">
                     <h3 className="font-serif text-2xl font-bold text-ink">{category.label}</h3>
                     <Link className="text-sm uppercase tracking-wide text-accent hover:underline" href={`/${category.slug}`}>

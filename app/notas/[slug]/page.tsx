@@ -67,13 +67,13 @@ export default async function NotePage({ params }: Props) {
           {post.title}
         </h1>
         <p className="mt-5 text-xl leading-8 text-muted">{post.description}</p>
-        <div className="relative mt-8 aspect-[16/9] overflow-hidden bg-night-soft">
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-lg border border-line bg-night-soft">
           <Image alt="" className="object-cover" fill priority sizes="(min-width: 1024px) 64rem, 100vw" src={cover} />
         </div>
         {post.tags.length > 0 && (
           <div className="mt-5 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <span className="border border-line px-2 py-1 text-xs uppercase tracking-wide text-muted" key={tag}>
+              <span className="rounded-full border border-line bg-night-soft px-2.5 py-1 text-xs uppercase tracking-wide text-muted" key={tag}>
                 {tag}
               </span>
             ))}
@@ -81,7 +81,7 @@ export default async function NotePage({ params }: Props) {
         )}
       </header>
 
-      <div className="prose prose-invert editorial-panel mx-auto mt-10 max-w-3xl p-6 prose-headings:font-serif prose-headings:leading-tight prose-a:text-accent sm:p-8">
+      <div className="prose editorial-panel mx-auto mt-10 max-w-3xl p-6 prose-headings:font-serif prose-headings:leading-tight prose-a:text-accent sm:p-8">
         <MDXRemote
           options={{
             mdxOptions: {

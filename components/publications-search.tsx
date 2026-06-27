@@ -27,7 +27,7 @@ export function PublicationsSearch({ labels, posts }: { labels: SearchLabels; po
         {labels.inputLabel}
       </label>
       <input
-        className="mt-2 w-full border border-line bg-night-soft/70 px-4 py-3 text-base text-ink outline-none transition placeholder:text-muted/70 focus:border-accent"
+        className="mt-2 w-full rounded-md border border-line bg-night-soft px-4 py-3 text-base text-ink outline-none transition placeholder:text-muted/70 focus:border-accent focus:ring-4 focus:ring-accent/10"
         id="notes-search"
         onChange={(event) => setQuery(event.target.value)}
         placeholder={labels.inputPlaceholder}
