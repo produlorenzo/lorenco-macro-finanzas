@@ -48,7 +48,7 @@ author: "Martín Ferrer"
 status: "draft"
 category: "Macro"
 tags: []
-coverImage: ""
+cover: ""
 sources:
   - title: ""
     url: ""
@@ -60,5 +60,5 @@ Contenido pendiente.
 fs.writeFileSync(target, content, "utf8");
 
 console.log(`Borrador creado: ${target}`);
-console.log("Imagen opcional: guardar en public/images/notas/ y completar coverImage.");
+console.log("Imagen opcional: guardar en public/images/covers/[categoria]/ y completar cover.");
 console.log('Para publicar, completá el contenido y cambiá status a "published".');

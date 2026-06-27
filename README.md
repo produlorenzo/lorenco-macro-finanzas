@@ -17,7 +17,7 @@ npm run build
 1. Crear un archivo `.md` o `.mdx` en `content/notas/`.
 2. Completar el frontmatter estándar.
 3. Guardar una imagen opcional en `public/images/notas/`.
-4. Si `coverImage` queda vacío, se puede completar con `npm run assign:covers`.
+4. Si `cover` queda vacío, se puede completar con `npm run assign:covers`.
 5. Hacer commit y push.
 6. Vercel publica automáticamente.
 
@@ -34,7 +34,7 @@ author: "Admin Lorenço"
 status: "published"
 category: "Recursos"
 tags: ["recursos", "datos"]
-coverImage: ""
+cover: ""
 sources:
   - title: "Fuente consultada"
     url: "https://..."
@@ -109,10 +109,19 @@ Imágenes de notas:
 public/images/notas/
 ```
 
-Imágenes automáticas de portada por categoría:
+Biblioteca de imágenes reutilizables de portada:
 
 ```text
-public/images/covers/[categoria]/
+public/images/covers/
+public/images/covers/macro/
+public/images/covers/inflacion/
+public/images/covers/fiscal/
+public/images/covers/monetario/
+public/images/covers/sistema-financiero/
+public/images/covers/mercado-capitales/
+public/images/covers/actividad/
+public/images/covers/internacional/
+public/images/covers/default/
 ```
 
 Ejemplos:
@@ -123,18 +132,24 @@ public/images/covers/finanzas/finanzas-02.png
 public/images/covers/finanzas/finanzas-03.png
 ```
 
-Para asignar portadas automáticamente a notas que tengan `coverImage` vacío:
+Cada imagen puede usarse desde el frontmatter de una nota con:
+
+```mdx
+cover: "/images/covers/[categoria]/[archivo].png"
+```
+
+Para asignar portadas automáticamente a notas que tengan `cover` vacío:
 
 ```bash
 npm run assign:covers
 ```
 
-La asignación respeta cualquier `coverImage` ya escrito en el frontmatter. Para cada categoría, usa todas las imágenes disponibles antes de repetir la primera del ciclo. Si una categoría no tiene imágenes propias, usa `/images/covers/default/lorenco-default-cover.png`.
+La asignación respeta cualquier `cover` ya escrito en el frontmatter. Para cada categoría, usa todas las imágenes disponibles antes de repetir la primera del ciclo. Si una nota no tiene `cover` y la categoría no tiene imágenes propias, usa `/images/covers/default/lorenco-default-cover.png`.
 
 Ejemplo:
 
 ```mdx
-coverImage: "/images/covers/finanzas/finanzas-01.png"
+cover: "/images/covers/finanzas/finanzas-01.png"
 ```
 
 ## Vercel

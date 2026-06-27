@@ -102,7 +102,10 @@ function readPostFile(fileName: string): Post {
   const category = requireString(fileName, frontmatter, "category");
   const tags = requireStringArray(fileName, frontmatter, "tags");
   const sources = requireSources(fileName, frontmatter);
-  const coverImage = typeof frontmatter.coverImage === "string" && frontmatter.coverImage.trim()
+  const cover = typeof frontmatter.cover === "string" && frontmatter.cover.trim()
+    ? frontmatter.cover.trim()
+    : undefined;
+  const legacyCoverImage = typeof frontmatter.coverImage === "string" && frontmatter.coverImage.trim()
     ? frontmatter.coverImage.trim()
     : undefined;
 
@@ -132,7 +135,7 @@ function readPostFile(fileName: string): Post {
     category,
     categorySlug,
     tags,
-    coverImage,
+    coverImage: cover ?? legacyCoverImage,
     sources,
     body: content,
     readingMinutes: readingTime(content).text.replace("min read", "min de lectura"),

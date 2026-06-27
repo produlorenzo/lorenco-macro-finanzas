@@ -54,6 +54,11 @@ function setFrontmatterField(frontmatter, key, value) {
   return `${frontmatter}\n${line}`;
 }
 
+function removeFrontmatterField(frontmatter, key) {
+  const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return frontmatter.replace(new RegExp(`^${escapedKey}:\\s*.*\\r?\\n?`, "m"), "");
+}
+
 function listCategoryCovers(categorySlug) {
   const categoryDir = path.join(coversDir, categorySlug);
 
@@ -78,8 +83,8 @@ function readNotes() {
       const parsed = parseFrontmatter(fileName, raw);
       const category = getFrontmatterField(parsed.frontmatter, "category");
       const date = getFrontmatterField(parsed.frontmatter, "date") || "0000-00-00";
-      const coverImage = getFrontmatterField(parsed.frontmatter, "coverImage");
       const cover = getFrontmatterField(parsed.frontmatter, "cover");
+      const coverImage = getFrontmatterField(parsed.frontmatter, "coverImage");
 
       if (!category) {
         throw new Error(`La nota ${fileName} no tiene category en el frontmatter.`);
@@ -93,7 +98,9 @@ function readNotes() {
         category,
         categorySlug: slugify(category),
         date,
-        existingCover: coverImage || cover,
+        existingCover: cover || coverImage,
+        hasCover: cover !== undefined,
+        hasLegacyCoverImage: coverImage !== undefined,
       };
     });
 }
@@ -130,6 +137,10 @@ export function assignCoversToNotes(notes) {
 
     for (const note of categoryNotes) {
       if (note.existingCover) {
+        if (!note.hasCover || note.hasLegacyCoverImage) {
+          updates.push({ note, assignedCover: note.existingCover, migrateOnly: true });
+        }
+
         if (validCategoryCover.has(note.existingCover)) {
           if (usedInCurrentCycle.has(note.existingCover)) {
             usedInCurrentCycle.clear();
@@ -155,11 +166,12 @@ export function assignCoversToNotes(notes) {
 }
 
 function writeUpdates(updates) {
-  for (const { note, assignedCover } of updates) {
-    const updatedFrontmatter = setFrontmatterField(note.frontmatter, "coverImage", assignedCover);
+  for (const { note, assignedCover, migrateOnly } of updates) {
+    const frontmatterWithoutLegacyCover = removeFrontmatterField(note.frontmatter, "coverImage");
+    const updatedFrontmatter = setFrontmatterField(frontmatterWithoutLegacyCover, "cover", assignedCover);
     const updatedRaw = `---${note.lineEnding}${updatedFrontmatter}${note.lineEnding}---${note.lineEnding}${note.body}`;
     fs.writeFileSync(note.filePath, updatedRaw, "utf8");
-    console.log(`${note.fileName}: ${assignedCover}`);
+    console.log(`${note.fileName}: ${migrateOnly ? "migrado a cover" : assignedCover}`);
   }
 }
 
