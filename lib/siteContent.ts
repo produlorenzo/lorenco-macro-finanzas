@@ -82,6 +82,17 @@ type PagesContent = {
   };
 };
 
+type ResourceSection = {
+  title: string;
+  href: string;
+  description: string;
+};
+
+type ResourcesContent = {
+  title: string;
+  sections: ResourceSection[];
+};
+
 const siteContentDir = path.join(process.cwd(), "content", "site");
 
 function readJsonFile<T>(fileName: string): T {
@@ -291,8 +302,44 @@ function validatePages(): PagesContent {
   };
 }
 
+function validateResources(): ResourcesContent {
+  const fileName = "resources.json";
+  const raw = readJsonFile<unknown>(fileName);
+  assertPlainObject(raw, fileName);
+
+  const sections = raw.sections;
+
+  if (!Array.isArray(sections) || sections.length === 0) {
+    throw new Error(`El campo "sections" en content/site/${fileName} debe contener al menos una subsección.`);
+  }
+
+  return {
+    title: requireString(raw, "title", fileName),
+    sections: sections.map((item, index) => {
+      if (!item || typeof item !== "object" || Array.isArray(item)) {
+        throw new Error(`La subsección ${index + 1} en content/site/${fileName} debe ser un objeto.`);
+      }
+
+      const section = item as Record<string, unknown>;
+      const title = requireString(section, "title", fileName);
+      const href = requireString(section, "href", fileName);
+
+      if (!href.startsWith("/recursos/")) {
+        throw new Error(`La subsección "${title}" en content/site/${fileName} debe usar un href que empiece con "/recursos/".`);
+      }
+
+      return {
+        title,
+        href,
+        description: requireString(section, "description", fileName),
+      };
+    }),
+  };
+}
+
 export const siteSettings = validateSettings();
 export const homeContent = validateHome();
 export const navigationContent = validateNavigation();
 export const footerContent = validateFooter();
 export const pagesContent = validatePages();
+export const resourcesContent = validateResources();
