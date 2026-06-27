@@ -28,7 +28,7 @@ export type Post = {
   category: string;
   categorySlug: string;
   tags: string[];
-  coverImage?: string;
+  cover?: string;
   sources: Source[];
   body: string;
   readingMinutes: string;
@@ -105,9 +105,6 @@ function readPostFile(fileName: string): Post {
   const cover = typeof frontmatter.cover === "string" && frontmatter.cover.trim()
     ? frontmatter.cover.trim()
     : undefined;
-  const legacyCoverImage = typeof frontmatter.coverImage === "string" && frontmatter.coverImage.trim()
-    ? frontmatter.coverImage.trim()
-    : undefined;
 
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     fail(fileName, `"date" debe usar formato YYYY-MM-DD.`);
@@ -135,7 +132,7 @@ function readPostFile(fileName: string): Post {
     category,
     categorySlug,
     tags,
-    coverImage: cover ?? legacyCoverImage,
+    cover,
     sources,
     body: content,
     readingMinutes: readingTime(content).text.replace("min read", "min de lectura"),

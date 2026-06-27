@@ -12,7 +12,7 @@ type SettingsContent = {
   seoTitle: string;
   seoDescription: string;
   contactEmail: string;
-  defaultCoverImage: string;
+  defaultCover: string;
   logoImage: string;
   heroBackgroundImage: string;
 };
@@ -190,7 +190,7 @@ function validateSettings(): SettingsContent {
     seoTitle: requireString(raw, "seoTitle", fileName),
     seoDescription: requireString(raw, "seoDescription", fileName),
     contactEmail: requireString(raw, "contactEmail", fileName),
-    defaultCoverImage: requireString(raw, "defaultCoverImage", fileName),
+    defaultCover: requireString(raw, "defaultCover", fileName),
     logoImage: requireString(raw, "logoImage", fileName),
     heroBackgroundImage: requireString(raw, "heroBackgroundImage", fileName),
   };

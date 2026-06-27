@@ -16,7 +16,7 @@ npm run build
 
 1. Crear un archivo `.md` o `.mdx` en `content/notas/`.
 2. Completar el frontmatter estándar.
-3. Guardar una imagen opcional en `public/images/notas/`.
+3. Elegir una portada en `public/images/covers/[categoria]/`.
 4. Si `cover` queda vacío, se puede completar con `npm run assign:covers`.
 5. Hacer commit y push.
 6. Vercel publica automáticamente.
@@ -61,8 +61,9 @@ Las categorías se editan desde `content/site/navigation.json`, dentro de la lis
 ```text
 content/notas/              Notas publicadas o borradores
 content/site/               Textos generales editables del sitio
-public/images/notas/        Imágenes opcionales de notas
-public/images/              Logo e imagen default
+public/images/covers/       Imágenes reutilizables de portada
+public/images/notas/        Imágenes opcionales dentro de notas
+public/images/              Logo y otros assets generales
 app/notas/[slug]/           Página de nota
 app/buscar/                 Búsqueda local
 app/macro/                  Categoría Macro
@@ -89,53 +90,30 @@ Las imágenes van en `public/images/`. Después de editar y hacer commit/push, V
 
 Si falta un archivo de `content/site/` o un campo obligatorio, el build falla con un mensaje claro.
 
-## Imágenes
+## Imágenes de portada
+
+El campo único para la portada de una nota es `cover`.
+
+```mdx
+cover: "/images/covers/[categoria]/[archivo].png"
+```
+
+La biblioteca de portadas usa solo categorías principales del sitio:
+
+```text
+public/images/covers/macro/
+public/images/covers/finanzas/
+public/images/covers/normativas/
+public/images/covers/historia/
+public/images/covers/reflexiones/
+public/images/covers/recursos/
+public/images/covers/default/
+```
 
 Imagen default:
 
 ```text
 public/images/covers/default/lorenco-default-cover.png
-```
-
-Logo:
-
-```text
-public/images/lorenco-logo.png
-```
-
-Imágenes de notas:
-
-```text
-public/images/notas/
-```
-
-Biblioteca de imágenes reutilizables de portada:
-
-```text
-public/images/covers/
-public/images/covers/macro/
-public/images/covers/inflacion/
-public/images/covers/fiscal/
-public/images/covers/monetario/
-public/images/covers/sistema-financiero/
-public/images/covers/mercado-capitales/
-public/images/covers/actividad/
-public/images/covers/internacional/
-public/images/covers/default/
-```
-
-Ejemplos:
-
-```text
-public/images/covers/finanzas/finanzas-01.png
-public/images/covers/finanzas/finanzas-02.png
-public/images/covers/finanzas/finanzas-03.png
-```
-
-Cada imagen puede usarse desde el frontmatter de una nota con:
-
-```mdx
-cover: "/images/covers/[categoria]/[archivo].png"
 ```
 
 Para asignar portadas automáticamente a notas que tengan `cover` vacío:
@@ -150,6 +128,20 @@ Ejemplo:
 
 ```mdx
 cover: "/images/covers/finanzas/finanzas-01.png"
+```
+
+## Otras imágenes
+
+Logo:
+
+```text
+public/images/lorenco-logo.png
+```
+
+Imágenes internas de notas:
+
+```text
+public/images/notas/
 ```
 
 ## Vercel

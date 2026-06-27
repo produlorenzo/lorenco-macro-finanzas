@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import { getPostCoverImage } from "@/lib/content-config";
+import { getPostCover } from "@/lib/content-config";
 import { formatDate } from "@/lib/format";
 import { getAllNotes, getPostBySlug } from "@/lib/posts";
 import { site } from "@/lib/site";
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return {};
 
-  const coverImage = getPostCoverImage(post.coverImage);
+  const cover = getPostCover(post.cover);
 
   return {
     title: post.title,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: [coverImage],
+      images: [cover],
       url: `${site.url}/notas/${post.slug}`,
     },
   };
@@ -50,7 +50,7 @@ export default async function NotePage({ params }: Props) {
     notFound();
   }
 
-  const coverImage = getPostCoverImage(post.coverImage);
+  const cover = getPostCover(post.cover);
 
   return (
     <article className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-16">
@@ -68,7 +68,7 @@ export default async function NotePage({ params }: Props) {
         </h1>
         <p className="mt-5 text-xl leading-8 text-muted">{post.description}</p>
         <div className="relative mt-8 aspect-[16/9] overflow-hidden bg-night-soft">
-          <Image alt="" className="object-cover" fill priority sizes="(min-width: 1024px) 64rem, 100vw" src={coverImage} />
+          <Image alt="" className="object-cover" fill priority sizes="(min-width: 1024px) 64rem, 100vw" src={cover} />
         </div>
         {post.tags.length > 0 && (
           <div className="mt-5 flex flex-wrap gap-2">

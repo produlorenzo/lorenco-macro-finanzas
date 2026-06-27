@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPostCoverImage } from "@/lib/content-config";
+import { getPostCover } from "@/lib/content-config";
 import { formatDate } from "@/lib/format";
 import type { Post } from "@/lib/posts";
 
@@ -71,7 +71,7 @@ function PostImage({ post, priority = false, sizes }: { post: Post; priority?: b
         fill
         priority={priority}
         sizes={sizes}
-        src={getPostCoverImage(post.coverImage)}
+        src={getPostCover(post.cover)}
       />
     </Link>
   );

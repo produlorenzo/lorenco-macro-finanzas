@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
-import { defaultCoverImage } from "@/lib/content-config";
+import { defaultCover } from "@/lib/content-config";
 import { site } from "@/lib/site";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     type: "website",
     locale: "es_AR",
-    images: [defaultCoverImage],
+    images: [defaultCover],
   },
   robots: {
     index: true,
