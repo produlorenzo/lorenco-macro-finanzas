@@ -30,10 +30,10 @@ El slug sale automáticamente del nombre del archivo. No agregar `slug` al front
 title: "Título de la nota"
 description: "Bajada breve"
 date: "YYYY-MM-DD"
-author: "Admin Lorenço"
+author: "Martín Ferrer"
 status: "published"
-category: "Recursos"
-tags: ["recursos", "datos"]
+category: "Macro"
+tags: ["macro", "datos"]
 cover: ""
 sources:
   - title: "Fuente consultada"
@@ -43,9 +43,15 @@ sources:
 
 Si falta un campo obligatorio, el build falla con un mensaje claro.
 
-## Categorías válidas
+## Categorías editoriales válidas
 
-Las categorías se editan desde `content/site/navigation.json`, dentro de la lista `primary`.
+- Macro
+- Finanzas
+- Normativas
+- Historia
+- Reflexiones
+
+Recursos no funciona como categoría común de notas. Es una página índice con subpáginas fijas en `content/recursos/`.
 
 ## Autores válidos
 
@@ -60,8 +66,10 @@ Las categorías se editan desde `content/site/navigation.json`, dentro de la lis
 
 ```text
 content/notas/              Notas publicadas o borradores
+content/recursos/           Páginas fijas de Recursos
 content/site/               Textos generales editables del sitio
-public/images/covers/       Imágenes reutilizables de portada
+public/images/covers/       Imágenes reutilizables de portada para notas
+public/images/recursos/     Imágenes de páginas fijas de Recursos
 public/images/notas/        Imágenes opcionales dentro de notas
 public/images/              Logo y otros assets generales
 app/notas/[slug]/           Página de nota
@@ -71,12 +79,16 @@ app/finanzas/               Categoría Finanzas
 app/normativas/             Categoría Normativas
 app/historia/               Categoría Historia
 app/reflexiones/            Categoría Reflexiones
-app/recursos/               Categoría Recursos
+app/recursos/               Índice y subpáginas fijas de Recursos
 ```
 
 ## Cómo editar textos generales del sitio
 
 Las notas y artículos se editan en `content/notas/` como archivos `.md` o `.mdx`.
+
+Las páginas fijas de Recursos se editan en `content/recursos/`. No dependen de `content/notas/` y no funcionan como artículos comunes.
+
+Las tarjetas del índice `/recursos` se editan en `content/site/resources.json`.
 
 Los textos generales del sitio se editan en `content/site/`:
 
@@ -85,10 +97,42 @@ Los textos generales del sitio se editan en `content/site/`:
 - `navigation.json`: labels y enlaces de navegación.
 - `footer.json`: textos del footer, disclaimer y aclaración de autores ficticios.
 - `pages.json`: textos de Sobre el proyecto, Contacto, Buscar, categorías y artículos.
+- `resources.json`: tarjetas del índice de Recursos.
 
 Las imágenes van en `public/images/`. Después de editar y hacer commit/push, Vercel republica automáticamente.
 
-Si falta un archivo de `content/site/` o un campo obligatorio, el build falla con un mensaje claro.
+Si falta un archivo de configuración o un campo obligatorio, el build falla con un mensaje claro.
+
+## Recursos
+
+Estructura de páginas fijas:
+
+```text
+/recursos
+/recursos/fuentes-consultadas
+/recursos/aurea-capital
+/recursos/te-lo-resumo-en-redes
+```
+
+Archivos de contenido:
+
+```text
+content/recursos/fuentes-consultadas.mdx
+content/recursos/aurea-capital.mdx
+content/recursos/te-lo-resumo-en-redes.mdx
+```
+
+Frontmatter de Recursos:
+
+```mdx
+---
+title: "Aurea Capital"
+description: "Juego educativo de finanzas para aprender tomando decisiones de inversión."
+cover: "/images/recursos/aurea-capital.png"
+externalUrl: "https://aurea-capital.vercel.app/"
+externalLabel: "Jugar Aurea Capital"
+---
+```
 
 ## Imágenes de portada
 
@@ -98,7 +142,7 @@ El campo único para la portada de una nota es `cover`.
 cover: "/images/covers/[categoria]/[archivo].png"
 ```
 
-La biblioteca de portadas usa solo categorías principales del sitio:
+La biblioteca de portadas para notas usa solo categorías editoriales:
 
 ```text
 public/images/covers/macro/
@@ -106,7 +150,6 @@ public/images/covers/finanzas/
 public/images/covers/normativas/
 public/images/covers/historia/
 public/images/covers/reflexiones/
-public/images/covers/recursos/
 public/images/covers/default/
 ```
 
@@ -124,13 +167,13 @@ npm run assign:covers
 
 La asignación respeta cualquier `cover` ya escrito en el frontmatter. Para cada categoría, usa todas las imágenes disponibles antes de repetir la primera del ciclo. Si una nota no tiene `cover` y la categoría no tiene imágenes propias, usa `/images/covers/default/lorenco-default-cover.png`.
 
-Ejemplo:
-
-```mdx
-cover: "/images/covers/finanzas/finanzas-01.png"
-```
-
 ## Otras imágenes
+
+Imágenes de páginas fijas de Recursos:
+
+```text
+public/images/recursos/
+```
 
 Logo:
 

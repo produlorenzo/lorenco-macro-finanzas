@@ -5,10 +5,12 @@ function categorySlugFromHref(href: string) {
 }
 
 export const editorialCategories = [
-  ...navigationContent.primary.map((item) => ({
-    label: item.label,
-    slug: categorySlugFromHref(item.href),
-  })),
+  ...navigationContent.primary
+    .map((item) => ({
+      label: item.label,
+      slug: categorySlugFromHref(item.href),
+    }))
+    .filter((category) => category.slug !== "recursos"),
 ] as const;
 
 export const validCategoryLabels = editorialCategories.map((category) => category.label);

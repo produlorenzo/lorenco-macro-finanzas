@@ -7,19 +7,14 @@
       "description": "Selección de fuentes públicas, bases de datos y sitios de referencia utilizados para seguir la coyuntura económica y financiera."
     },
     {
-      "title": "Biblioteca Multimedia",
-      "href": "/recursos/biblioteca-multimedia",
-      "description": "Videos, entrevistas, podcasts y contenidos audiovisuales seleccionados por su valor educativo."
-    },
-    {
       "title": "Aurea Capital",
       "href": "/recursos/aurea-capital",
       "description": "Ten acceso al demo de 3 días del juego educativo Aurea-Capital. Conviértete en asesor financiero senior mientras aprendes de finanzas! Proyecto en desarrollo de produ.lorenzo"
     },
     {
-      "title": "TLR: Te lo resumo en redes",
-      "href": "/recursos/tlr-te-lo-resumo-en-redes",
-      "description": "Canal de youtube con fines educativos. Resúmenes breves sobre conceptos económicos y autores clásicos del pasado. Otro de los proyectos de produ.lorenzo"
+      "title": "Te lo resumo en redes",
+      "href": "/recursos/te-lo-resumo-en-redes",
+      "description": "Canal de YouTube con fines educativos. Resúmenes breves sobre conceptos económicos y autores clásicos del pasado. Otro de los proyectos de produ.lorenzo"
     }
   ]
 }

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { editorialCategories } from "@/lib/categories";
 import { siteLogo } from "@/lib/content-config";
 import { site } from "@/lib/site";
 import { navigationContent } from "@/lib/siteContent";
@@ -27,8 +26,8 @@ export function Header() {
         </div>
         <div className="grid gap-2 border-t border-line py-2 lg:grid-cols-[1fr_auto]">
           <nav className="flex gap-x-5 overflow-x-auto text-sm font-bold uppercase tracking-wide text-ink">
-            {editorialCategories.map((item) => (
-              <Link className="whitespace-nowrap transition hover:text-accent" href={`/${item.slug}`} key={item.slug}>
+            {navigationContent.primary.map((item) => (
+              <Link className="whitespace-nowrap transition hover:text-accent" href={item.href} key={item.href}>
                 {item.label}
               </Link>
             ))}

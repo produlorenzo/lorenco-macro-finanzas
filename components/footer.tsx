@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { editorialCategories } from "@/lib/categories";
 import { footerContent, navigationContent } from "@/lib/siteContent";
 
 export function Footer() {
@@ -13,8 +12,8 @@ export function Footer() {
           <p className="mt-3 leading-7">{footerContent.disclaimer}</p>
         </div>
         <nav className="flex max-w-sm flex-wrap content-start gap-x-5 gap-y-3 lg:justify-end">
-          {editorialCategories.map((item) => (
-            <Link className="transition hover:text-accent" href={`/${item.slug}`} key={item.slug}>
+          {navigationContent.primary.map((item) => (
+            <Link className="transition hover:text-accent" href={item.href} key={item.href}>
               {item.label}
             </Link>
           ))}

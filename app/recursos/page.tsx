@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArticleCard } from "@/components/article-card";
-import { getPostsByCategory } from "@/lib/posts";
-import { pagesContent, resourcesContent } from "@/lib/siteContent";
+import { resourcesContent } from "@/lib/siteContent";
 
 export const metadata: Metadata = {
   title: resourcesContent.title,
 };
 
 export default function RecursosPage() {
-  const posts = getPostsByCategory("recursos");
-
   return (
     <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
       <div className="editorial-panel p-6 sm:p-8">
-        <p className="text-sm uppercase tracking-wide text-accent">{pagesContent.category.eyebrow}</p>
+        <p className="text-sm uppercase tracking-wide text-accent">Índice</p>
         <h1 className="mt-3 font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
           {resourcesContent.title}
         </h1>
@@ -40,16 +36,6 @@ export default function RecursosPage() {
         ))}
       </section>
 
-      <section className="editorial-panel mt-8 p-5 sm:p-6">
-        <h2 className="font-serif text-3xl font-bold text-ink">{resourcesContent.title}</h2>
-        <div className="mt-2">
-          {posts.length > 0 ? (
-            posts.map((post) => <ArticleCard key={post.slug} post={post} />)
-          ) : (
-            <p className="py-5 text-muted">{pagesContent.category.emptyText}</p>
-          )}
-        </div>
-      </section>
     </section>
   );
 }
